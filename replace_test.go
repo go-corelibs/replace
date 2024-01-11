@@ -100,4 +100,19 @@ func TestReplace(t *testing.T) {
 		So(count, ShouldEqual, 3)
 		So(modified, ShouldEqual, wrTestPreserve)
 	})
+
+	Convey("RegexPreserve", t, func() {
+		modified, count := RegexPreserve(regexp.MustCompile(`(?i)one`), `two`, wrTestOriginal)
+		So(count, ShouldEqual, 3)
+		So(modified, ShouldEqual, wrTestPreserve)
+		modified, count = RegexPreserve(regexp.MustCompile(`(?i)one`), `one`, wrTestOriginal)
+		So(count, ShouldEqual, 3)
+		So(modified, ShouldEqual, wrTestOriginal)
+		modified, count = RegexPreserve(nil, `one`, wrTestOriginal)
+		So(count, ShouldEqual, 0)
+		So(modified, ShouldEqual, wrTestOriginal)
+		modified, count = RegexPreserve(regexp.MustCompile(`One one`), `two`, wrTestOriginal)
+		So(count, ShouldEqual, 1)
+		So(modified, ShouldEqual, `two ONE`)
+	})
 }

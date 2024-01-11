@@ -134,3 +134,47 @@ func StringPreserve(search, replace, contents string) (modified string, count in
 	modified = contents
 	return
 }
+
+func RegexPreserve(search *regexp.Regexp, replace, contents string) (modified string, count int) {
+	if search != nil {
+
+		if strings.ContainsFunc(search.String()+replace, func(r rune) bool {
+			return unicode.IsSpace(r)
+		}) {
+			modified, count = Regex(search, replace, contents)
+			return
+		}
+
+		m := search.FindAllString(contents, -1)
+		if count = len(m); count > 0 {
+
+			var buffer strings.Builder
+
+			var start int
+			for i := 0; i < count; i++ {
+				j := start
+				// find next index
+				j += strings.Index(contents[start:], m[i])
+				// write non-match contents
+				buffer.WriteString(contents[start:j])
+				// derive replacement value
+				c := DetectCase(m[i])
+				// replacement my contain regex goodness, so must
+				// call search.ReplaceAllString to get the corrent
+				// results
+				replaced := search.ReplaceAllString(m[i], replace)
+				// write modified replacement
+				buffer.WriteString(c.Apply(replaced))
+				// move the start point
+				start = j + len(m[i])
+			}
+			buffer.WriteString(contents[start:])
+			modified = buffer.String()
+
+			return
+		}
+
+	}
+	modified = contents
+	return
+}
