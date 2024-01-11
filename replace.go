@@ -84,7 +84,7 @@ func StringInsensitive(search, replace, contents string) (modified string, count
 
 // StringPreserve is like StringInsensitive except that StringPreserve attempts
 // to preserve the per-instance case when doing replacements. If `search` or
-// `replace` have any spaces, StringPreserve is wraps StringInsensitive.
+// `replace` have any spaces, StringPreserve is wraps String.
 //
 // To preserve the per-instance cases, each instance has DetectCase run and
 // uses Case.Apply to derive the `replace` value actually used
@@ -97,7 +97,7 @@ func StringPreserve(search, replace, contents string) (modified string, count in
 		if strings.ContainsFunc(search+replace, func(r rune) bool {
 			return unicode.IsSpace(r)
 		}) {
-			modified, count = StringInsensitive(search, replace, contents)
+			modified, count = String(search, replace, contents)
 			return
 		}
 

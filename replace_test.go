@@ -93,7 +93,7 @@ func TestReplace(t *testing.T) {
 		modified, count := StringPreserve(`one`, `one`, wrTestOriginal)
 		So(count, ShouldEqual, 0)
 		So(modified, ShouldEqual, wrTestOriginal)
-		modified, count = StringPreserve(`one one`, `two`, wrTestOriginal)
+		modified, count = StringPreserve(`One one`, `two`, wrTestOriginal)
 		So(count, ShouldEqual, 1)
 		So(modified, ShouldEqual, `two ONE`)
 		modified, count = StringPreserve(`one`, `two`, wrTestOriginal)
