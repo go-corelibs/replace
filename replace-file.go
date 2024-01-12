@@ -16,7 +16,6 @@ package replace
 
 import (
 	"os"
-	"regexp"
 
 	"github.com/go-corelibs/diff"
 )
@@ -31,50 +30,5 @@ func ProcessFile(target string, fn func(original string) (modified string, count
 		modified, count = fn(original)
 		delta = diff.New(target, original, modified)
 	}
-	return
-}
-
-// RegexFile uses Regex to ProcessFile
-func RegexFile(search *regexp.Regexp, replace, target string) (original, modified string, count int, delta *diff.Diff, err error) {
-	original, modified, count, delta, err = ProcessFile(target, func(original string) (modified string, count int) {
-		modified, count = Regex(search, replace, original)
-		return
-	})
-	return
-}
-
-// StringFile uses String to ProcessFile
-func StringFile(search, replace, target string) (original, modified string, count int, delta *diff.Diff, err error) {
-	original, modified, count, delta, err = ProcessFile(target, func(original string) (modified string, count int) {
-		modified, count = String(search, replace, original)
-		return
-	})
-	return
-}
-
-// StringInsensitiveFile uses StringInsensitive to ProcessFile
-func StringInsensitiveFile(search, replace, target string) (original, modified string, count int, delta *diff.Diff, err error) {
-	original, modified, count, delta, err = ProcessFile(target, func(original string) (modified string, count int) {
-		modified, count = StringInsensitive(search, replace, original)
-		return
-	})
-	return
-}
-
-// StringPreserveFile uses StringPreserve to ProcessFile
-func StringPreserveFile(search, replace, target string) (original, modified string, count int, delta *diff.Diff, err error) {
-	original, modified, count, delta, err = ProcessFile(target, func(original string) (modified string, count int) {
-		modified, count = StringPreserve(search, replace, original)
-		return
-	})
-	return
-}
-
-// RegexPreserveFile uses StringPreserve to ProcessFile
-func RegexPreserveFile(search *regexp.Regexp, replace, target string) (original, modified string, count int, delta *diff.Diff, err error) {
-	original, modified, count, delta, err = ProcessFile(target, func(original string) (modified string, count int) {
-		modified, count = RegexPreserve(search, replace, original)
-		return
-	})
 	return
 }
