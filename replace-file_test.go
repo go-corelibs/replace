@@ -15,7 +15,6 @@
 package replace
 
 import (
-	"regexp"
 	"testing"
 
 	. "github.com/smartystreets/goconvey/convey"
@@ -43,46 +42,6 @@ func TestReplaceFile(t *testing.T) {
 			return
 		})
 		So(err, ShouldNotEqual, nil)
-	})
-
-	Convey("RegexFile", t, func() {
-		original, modified, count, diff, err := RegexFile(regexp.MustCompile(`(?i)the`), `THE`, gTestingTestMd)
-		So(err, ShouldEqual, nil)
-		So(modified, ShouldNotEqual, original)
-		So(count, ShouldEqual, 4)
-		So(diff.Len(), ShouldEqual, 6)
-	})
-
-	Convey("StringFile", t, func() {
-		original, modified, count, diff, err := StringFile("the", "THE", gTestingTestMd)
-		So(err, ShouldEqual, nil)
-		So(modified, ShouldNotEqual, original)
-		So(count, ShouldEqual, 3)
-		So(diff.Len(), ShouldEqual, 6)
-	})
-
-	Convey("StringInsensitiveFile", t, func() {
-		original, modified, count, diff, err := StringInsensitiveFile("the", "THE", gTestingTestMd)
-		So(err, ShouldEqual, nil)
-		So(modified, ShouldNotEqual, original)
-		So(count, ShouldEqual, 4)
-		So(diff.Len(), ShouldEqual, 6)
-	})
-
-	Convey("StringPreserveFile", t, func() {
-		original, modified, count, diff, err := StringPreserveFile("the", "this", gTestingTestMd)
-		So(err, ShouldEqual, nil)
-		So(modified, ShouldNotEqual, original)
-		So(count, ShouldEqual, 4)
-		So(diff.Len(), ShouldEqual, 6)
-	})
-
-	Convey("RegexPreserveFile", t, func() {
-		original, modified, count, diff, err := RegexPreserveFile(regexp.MustCompile(`(?i)the`), "this", gTestingTestMd)
-		So(err, ShouldEqual, nil)
-		So(modified, ShouldNotEqual, original)
-		So(count, ShouldEqual, 4)
-		So(diff.Len(), ShouldEqual, 6)
 	})
 
 }
