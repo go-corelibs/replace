@@ -7,6 +7,8 @@ github.com/go-corelibs/maps v1.0.2 h1:ky6gHD7G1XODl8g6KAqT8JJy7SOK5oUoTm5PYJgJft
 github.com/go-corelibs/maps v1.0.2/go.mod h1:AdGyPQOLVgiaRyCJFcFUjcdXQEmKciMKA8RWAHzdUCk=
 github.com/go-corelibs/maths v1.0.1 h1:gwBRTJSfEnwXEttf3fCqyL2l7x6HML5Y07cO6WleDqo=
 github.com/go-corelibs/maths v1.0.1/go.mod h1:AGg83e+nOjEqCvfrwDMGTu/DvSrs0bWLZ1IZc/fN5RM=
+github.com/go-corelibs/strcases v1.0.0 h1:NqpPbO+GNwX4y2q2QpGwLxHRMYZqm/Jb/9+JVchcMaU=
+github.com/go-corelibs/strcases v1.0.0/go.mod h1:w8YQbdL4CVaQB3K/nZjkG+Ro9uOPK5uak0vgQR9szCU=
 github.com/gopherjs/gopherjs v1.17.2 h1:fQnZVsXk8uxXIStYb0N4bGk7jeyTalG/wsZjQ25dO0g=
 github.com/gopherjs/gopherjs v1.17.2/go.mod h1:pRRIvn/QzFLrKfvEz3qUuEhtE/zLCWfreZ6J5gM2i+k=
 github.com/hexops/gotextdiff v1.0.3 h1:gitA9+qJrrTCsiCl7+kh75nPqQt1cx4ZkudSTLoUqJM=
