@@ -36,6 +36,17 @@ func main() {
 }
 ```
 
+## Vars
+
+``` go
+func main() {
+    expanded := replace.Vars("hello ${name}", map[string]string{
+        "name": "strange new worlds",
+    })
+    // expanded == "hello strange new worlds"
+}
+```
+
 # Go-CoreLibs
 
 [Go-CoreLibs] is a repository of shared code between the [Go-Curses] and
