@@ -43,4 +43,11 @@ func TestVars(t *testing.T) {
 		So(Vars("Plain $_text$ input", map[string]string{"_text": "string"}), ShouldEqual, "Plain string$ input")
 		So(Vars("Plain ${_text$ input", map[string]string{"_text": "string"}), ShouldEqual, "Plain ${_text$ input")
 	})
+
+	Convey("Corner cases", t, func() {
+		So(Vars("Plain ${text} input $text", map[string]string{"text": "string"}), ShouldEqual, "Plain string input string")
+		So(Vars("$text plain ${text} input $text", map[string]string{"text": "string"}), ShouldEqual, "string plain string input string")
+		So(Vars("$text", map[string]string{"text": "string"}), ShouldEqual, "string")
+		So(Vars("${text}", map[string]string{"text": "string"}), ShouldEqual, "string")
+	})
 }

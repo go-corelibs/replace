@@ -74,6 +74,7 @@ func Vars(input string, replacements map[string]string) (expanded string) {
 				// cleanup the current state
 				s.opened = false
 				s.braced = false
+				s.source = ""
 				s.key = ""
 				continue
 			}
@@ -104,6 +105,7 @@ func Vars(input string, replacements map[string]string) (expanded string) {
 			// cleanup the current state
 			s.opened = false
 			s.braced = false
+			s.source = ""
 			s.key = ""
 			continue
 		}
@@ -116,6 +118,12 @@ func Vars(input string, replacements map[string]string) (expanded string) {
 
 		// actual content
 		expanded += char
+	}
+
+	if v, ok := replacements[s.key]; ok {
+		expanded += v
+	} else if s.source != "" {
+		expanded += s.source
 	}
 
 	return
