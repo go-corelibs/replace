@@ -120,12 +120,11 @@ func Vars(input string, replacements map[string]string) (expanded string) {
 		expanded += char
 	}
 
-	if v, ok := replacements[s.key]; ok {
-		expanded += v
-	} else if s.source != "" {
-		expanded += s.source
+	if s.key != "" {
+		if v, ok := replacements[s.key]; ok {
+			expanded += v
+		}
 	}
-
 	return
 }
 
