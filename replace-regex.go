@@ -38,17 +38,22 @@ func Regex(search *regexp.Regexp, replace, contents string) (modified string, co
 // into a list of lines and `search` is applied to each line individually
 func RegexLines(search *regexp.Regexp, replace, contents string) (modified string, count int) {
 	if search != nil {
-		var lines []string
-		for _, line := range strings.Split(contents, "\n") {
+		var replaced []string
+		lines := strings.Split(contents, "\n")
+		last := len(lines) - 1
+		for idx, line := range lines {
+			if idx < last {
+				line += "\n"
+			}
 			if num := len(search.FindAllString(line, -1)); num > 0 {
 				count += num
-				lines = append(lines, search.ReplaceAllString(line, replace))
+				replaced = append(replaced, search.ReplaceAllString(line, replace))
 			} else {
-				lines = append(lines, line)
+				replaced = append(replaced, line)
 			}
 		}
-		if len(lines) > 0 {
-			modified = strings.Join(lines, "\n")
+		if len(replaced) > 0 {
+			modified = strings.Join(replaced, "")
 			return
 		}
 	}
