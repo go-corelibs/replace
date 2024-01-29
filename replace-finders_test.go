@@ -132,9 +132,11 @@ func TestFinders(t *testing.T) {
 
 		Convey("binary file error", func(c C) {
 			m.Lock()
-			defer m.Unlock()
-			MaxFileSize = origMaxFileSize
-			MaxFileCount = origMaxFileCount
+			defer func() {
+				MaxFileSize = origMaxFileSize
+				m.Unlock()
+			}()
+			MaxFileSize = 1024 * 1024 * 1024
 			thisBin, err0 := os.Executable()
 			So(err0, ShouldEqual, nil)
 			binaryTargets := []string{thisBin}
