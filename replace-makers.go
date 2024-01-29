@@ -19,6 +19,8 @@ import (
 	"strings"
 )
 
+// MakeRegexp constructs a new *regexp.Regexp instance, prefixing the search
+// pattern with `(?msi)` depending on the boolean arguments given
 func MakeRegexp(search string, multiLine, dotMatchNl, ignoreCase bool) (rx *regexp.Regexp, err error) {
 
 	var rxFlags []string
