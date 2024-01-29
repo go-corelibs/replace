@@ -87,11 +87,12 @@ func TestFinders(t *testing.T) {
 
 	Convey("FindAllMatcher", t, func() {
 		targets := []string{"_testing"}
-		m := sync.Mutex{}
+		origMaxFileSize := MaxFileSize
+		origMaxFileCount := MaxFileCount
+		m := &sync.Mutex{}
 
 		Convey("too many files error", func(c C) {
 			m.Lock()
-			origMaxFileCount := MaxFileCount
 			defer func() {
 				MaxFileCount = origMaxFileCount
 				m.Unlock()
@@ -108,7 +109,6 @@ func TestFinders(t *testing.T) {
 
 		Convey("large file error", func(c C) {
 			m.Lock()
-			origMaxFileSize := MaxFileSize
 			defer func() {
 				MaxFileSize = origMaxFileSize
 				m.Unlock()
@@ -133,6 +133,8 @@ func TestFinders(t *testing.T) {
 		Convey("binary file error", func(c C) {
 			m.Lock()
 			defer m.Unlock()
+			MaxFileSize = origMaxFileSize
+			MaxFileCount = origMaxFileCount
 			thisBin, err0 := os.Executable()
 			So(err0, ShouldEqual, nil)
 			binaryTargets := []string{thisBin}
